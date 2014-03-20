@@ -1,0 +1,3 @@
+/* ==== Content ==== */
+/* ==================================== */
+.content { margin-top:px-to-em(55px); @include grda-column(6,1); @include rgba-background-inline(rgba(0,0,0,0.75)); @include box-sizing(border-box); padding:px-to-em(25px); }

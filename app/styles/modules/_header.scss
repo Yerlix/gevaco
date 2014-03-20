@@ -1,0 +1,19 @@
+/* ==== Header ==== */
+/* ==================================== */
+.main-header { background-color:#333; }
+.main-header ul { margin:0; position:relative; overflow:hidden; }
+.main-header li { @include reset-li; @include grdb-column-flat(2); }
+.main-header li.logo { @include grdb-column-flat(4); }
+.main-header li a { display:block; text-align:center; color:#fff; text-transform:uppercase; padding:px-to-em(25px) 0; }
+.main-header li.logo a { padding:px-to-em(10px) 0; }
+.main-header li a .sub { display:block; color:#f9d100; @include adjust-font-size-to(12px,false,14px); }
+.main-header li a img { width:100%; display:block; }
+
+.main-header li a:hover,
+.main-header li a:focus { text-decoration:none; }
+
+// seperators
+.main-header ul:before,
+.main-header ul:after { content:' '; position:absolute; display:block; width:1px; top:35%; bottom:35%; background-color:#c4c4c4; }
+.main-header ul:before { left:$grdb-col-width*2 + $grd-gutter-width*2.5; }
+.main-header ul:after { right:$grdb-col-width*2 + $grd-gutter-width*2.5; }

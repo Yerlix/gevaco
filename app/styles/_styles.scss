@@ -1,0 +1,56 @@
+/* ==== Frame ==== */
+/* ==================================== */
+body { background:#fff; }
+.layout { /*background:rgba(100,0,0,0.5);*/ overflow:hidden; min-width:$page-min-width; max-width:$page-max-width; margin:0 auto; }
+
+@media screen and (min-width:$box-max-width+1) {
+	body { background:none; }
+}
+//screens >1024
+@media screen and (min-width:$breakpoint+1) {
+	.layout { width:80%; min-width:$breakpoint+1; }
+}
+//mobile
+@media screen and ($mobileRule:$page-min-width - 1) {
+	body { @include adjust-font-size-to($base-mobile-font-size, false, $base-mobile-line-size); }
+	.layout { width:100%; min-width:0; }
+}
+
+
+/* ==== Normalize additions ==== */
+/* ==================================== */
+html, body { -webkit-user-drag:none; -webkit-tap-highlight-color:rgba(0,0,0,0); height:100%; color:#fff; }
+a { color:$link-color; text-decoration:none; }
+a:visited { color:$link-visited-color; text-decoration:none; }
+a:hover,
+a:focus { text-decoration:underline; }
+input { padding:0; }
+input[type='submit'] { -webkit-appearance:none; }
+input:focus, button:focus { outline:none; }
+dl, menu, ol, ul, p { margin:1em 0; }
+ul { padding:0; list-style:none; }
+ul li { padding:0 0 0 $indent-amount; position:relative; margin-bottom:0.5em; }
+ul li > ul { margin-top:0.5em; }
+ul li li { margin-left:px-to-em(25px); }
+ul li:last-child { margin-bottom:0; }
+ul li:before { content:"\2022"; position:absolute; left:0; }
+ol { padding:0; list-style:none; *list-style:decimal; counter-reset:li; }
+ol li { padding:0 0 0 $indent-amount; position:relative; margin-bottom:0.5em; }
+ol li:last-child { margin-bottom:0; }
+ol li:before { content:counter(li)'.'; counter-increment:li; position:absolute; left:0; }
+ol ul { counter-reset:li; }
+ol li ul li:before { content:"\2022"; }
+html, html a { -webkit-font-smoothing:antialiased !important; font-smoothing:antialiased !important; text-rendering:optimizeLegibility; }
+body > svg { position:absolute; left:-9999em; }
+
+
+/* ==== imports ==== */
+/* ==================================== */
+@import "modules/header";
+@import "modules/content";
+
+/* ==== Selections ==== */
+/* ==================================== */
+div:focus { outline:none; }
+::selection { color:#000; background-color:rgba(0,0,0,0.2); }
+::-moz-selection { color:#000; background-color:rgba(0,0,0,0.2); } 

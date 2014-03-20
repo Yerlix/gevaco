@@ -1,0 +1,13 @@
+// Set this to true to add support for IE.
+$legacy-support-for-ie6: false !default;
+$legacy-support-for-ie7: false !default; 
+
+
+/* ==== Header: transparen bg-img ==== */
+/* ==================================== */
+// body.lt-ie9 #block-ip-search-ip-search-contextual-search .form-textfield input {
+// 	background-image:inline-image('../img/trans.png');
+// 	@if $legacy-support-for-ie6 or $legacy-support-for-ie7 {
+// 		*background-image:url('../img/trans.png');
+// 	}
+// }
