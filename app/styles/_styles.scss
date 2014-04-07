@@ -1,10 +1,10 @@
 /* ==== Frame ==== */
 /* ==================================== */
-body { background:#fff; }
+body { background-color:#fff; background-image:url('/images/villa_gevaco_2.JPG'); background-position:center; background-size:cover; background-repeat:no-repeat; }
 .layout { /*background:rgba(100,0,0,0.5);*/ overflow:hidden; min-width:$page-min-width; max-width:$page-max-width; margin:0 auto; }
 
 @media screen and (min-width:$box-max-width+1) {
-	body { background:none; }
+	// body { background:none; }
 }
 //screens >1024
 @media screen and (min-width:$breakpoint+1) {
@@ -19,7 +19,7 @@ body { background:#fff; }
 
 /* ==== Normalize additions ==== */
 /* ==================================== */
-html, body { -webkit-user-drag:none; -webkit-tap-highlight-color:rgba(0,0,0,0); height:100%; color:#fff; }
+html, body { -webkit-user-drag:none; -webkit-tap-highlight-color:rgba(0,0,0,0); color:#fff; min-height:100%; }
 a { color:$link-color; text-decoration:none; }
 a:visited { color:$link-visited-color; text-decoration:none; }
 a:hover,

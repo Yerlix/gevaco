@@ -1,3 +1,21 @@
 /* ==== Content ==== */
 /* ==================================== */
-.content { margin-top:px-to-em(55px); @include grda-column(6,1); @include rgba-background-inline(rgba(0,0,0,0.75)); @include box-sizing(border-box); padding:px-to-em(25px); }
+.content { margin:px-to-em(55px) 0; @include rgba-background-inline(rgba(0,0,0,0.80)); @include box-sizing(border-box); padding:px-to-em(30px) 0; font-family:$base-font-family; overflow:hidden; }
+.content h1 { font-family:$accent-font-family; text-transform:uppercase; }
+.content hgroup *:first-child { margin-top:0; }
+.content li { margin-bottom:0; }
+.content ul { overflow:hidden; }
+
+// Article content
+article footer .person { border-top:1px solid rgba(255,255,255,0.6); padding-top:0.5em; }
+article footer .person .name { font-weight:700; }
+article footer .person .function { display:block; font-style:italic; }
+
+// Single section
+.single-section .content > .content-wrapper { @include grda-column(6,1); }
+.single-section .content .side-img { @include grda-column-flat(2,0); margin-left:0; margin-right:$grd-gutter-width; }
+.single-section .content .side-img img { min-width:100%; width:100%; height:auto; display:block; }
+//mobile
+@media screen and ($mobileRule:$page-min-width - 1) {
+	.single-section .content .side-img { display:none; }
+}

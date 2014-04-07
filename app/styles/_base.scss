@@ -22,9 +22,11 @@ $strict-normalize: false !default;
 //
 // Font faces, stacks and sizes.
 //
-$base-font-size: 18px !default;
+$base-font-family: "museo-slab", serif;
+$accent-font-family: "futura-pt", sans-serif;
+$base-font-size: 16px !default;
 $base-line-height: 27px !default;
-$base-font-family: "futura-pt", sans-serif !default;
+$base-font-family: $accent-font-family !default;
 
 $h1-font-size: 42px !default;
 $h2-font-size: 26px !default;
