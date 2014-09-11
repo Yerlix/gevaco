@@ -1,0 +1,71 @@
+/* ==== Frame ==== */
+/* ==================================== */
+body { background-color:#fff; @include background-size(cover); background-attachment:fixed; position:relative;  }
+.layout { /*background:rgba(100,0,0,0.5);*/ overflow:hidden; min-width:$page-min-width; max-width:$page-max-width; margin:0 auto; }
+.lt-ie9 body{ background:#8fc4f6 !important; }
+
+
+@media screen and (min-width:$box-max-width+1) {
+	// body { background:none; }
+}
+//screens >1024
+@media screen and (min-width:$breakpoint+1) {
+	.layout { width:80%; min-width:$breakpoint+1; }
+}
+//mobile
+@media screen and ($mobileRule:$page-min-width - 1) {
+	body { @include adjust-font-size-to($base-mobile-font-size, false, $base-mobile-line-size); background:#8fc4f6 !important; }
+	.layout { width:100%; min-width:0; }
+}
+
+
+.visually-hidden { @include hidden; }
+
+/* ==== Normalize additions ==== */
+/* ==================================== */
+html, body { -webkit-user-drag:none; -webkit-tap-highlight-color:rgba(0,0,0,0); color:#fff; min-height:100%; }
+a { color:$link-color; text-decoration:none; }
+a:visited { color:$link-visited-color; text-decoration:none; }
+a:hover,
+a:focus { text-decoration:underline; }
+input { padding:0; }
+input[type='submit'] { -webkit-appearance:none; }
+input:focus, button:focus { outline:none; }
+dl, menu, ol, ul, p { margin:1em 0; }
+ul { padding:0; list-style:none; }
+ul li { padding:0 0 0 $indent-amount; position:relative; margin-bottom:0.5em; }
+ul li > ul { margin-top:0.5em; }
+ul li li { margin-left:px-to-em(25px); }
+ul li:last-child { margin-bottom:0; }
+ul li:before { content:"\2022"; position:absolute; left:0; }
+ol { padding:0; list-style:none; *list-style:decimal; counter-reset:li; }
+ol li { padding:0 0 0 $indent-amount; position:relative; margin-bottom:0.5em; }
+ol li:last-child { margin-bottom:0; }
+ol li:before { content:counter(li)'.'; counter-increment:li; position:absolute; left:0; }
+ol ul { counter-reset:li; }
+ol li ul li:before { content:"\2022"; }
+html, html a { -webkit-font-smoothing:antialiased !important; font-smoothing:antialiased !important; text-rendering:optimizeLegibility; }
+body > svg { position:absolute; left:-9999em; }
+h1, h2, h3, h4, h5, h6 { font-weight:500; line-height:normal; }
+hr { height:1px; border:0; background-color:#fff; background-color:rgba(255,255,255,0.6);}
+
+/* ==== imports ==== */
+/* ==================================== */
+// modules
+@import "modules/header";
+@import "modules/footer";
+@import "modules/content";
+@import "modules/forms";
+@import "modules/sidebar";
+@import "modules/gallery";
+// pagespecific
+@import "pagespecific/contact";
+// plugins
+@import "plugins/picker";
+@import "plugins/magnificpopup";
+
+/* ==== Selections ==== */
+/* ==================================== */
+div:focus { outline:none; }
+::selection { color:#fff; background-color:rgba(0,117,190,0.2); }
+::-moz-selection { color:#fff; background-color:rgba(0,117,190,0.2); }

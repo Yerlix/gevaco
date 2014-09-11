@@ -1,0 +1,27 @@
+// Set this to true to add support for IE.
+$legacy-support-for-ie6: false !default;
+$legacy-support-for-ie7: false !default;
+
+$image-url: 'test';
+
+
+/* ==== Picker ==== */
+/* ==================================== */
+.picker.picker-checkbox.checked .picker-flag  {
+	background-image:inline-image('../images/check.png');
+	// @if $legacy-support-for-ie6 or $legacy-support-for-ie7 {
+	// 	*background-image:url('../img/trans.png');
+	// }
+}
+
+/* ==== Bullet ==== */
+/* ==================================== */
+nav.subnavigation ul li a:after,
+.contact-info dl dd a:before {
+	background-image:inline-image('../images/bullet.png');
+}
+
+/* ==== lightbox ==== */
+/* ==================================== */
+.mfp-arrow-right { background-image:inline-image('../images/arrow-right.png'); }
+.mfp-arrow-left { background-image:inline-image('../images/arrow-left.png'); }

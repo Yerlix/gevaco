@@ -1,0 +1,11 @@
+/* ==== Header ==== */
+/* ==================================== */
+.gallery-wrapper li { @include reset-li; display:block; overflow:hidden; float:left; width:percentage(1/5); margin:2.5%; height:px-to-em(100px); }
+.gallery-wrapper li a { display:block; min-height:100%; position:relative; float:right; right:50%; }
+.gallery-wrapper li img { position:relative; right:-50%; min-width:100%; min-height:100%; }
+
+
+//mobile
+@media screen and ($mobileRule:$page-min-width - 1) {
+	.gallery-wrapper li  { width:percentage(2/5); margin:percentage(1/20); }
+}

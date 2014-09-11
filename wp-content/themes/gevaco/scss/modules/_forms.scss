@@ -1,0 +1,33 @@
+/* ==== Contact ==== */
+/* ==================================== */
+.form-item { @include grda-column-flat(3,0); margin-bottom:px-to-em(20px); }
+.form-item.small { @include grdb-column-flat(3,0); }
+.form-item.first { margin-left:0; @include new-row; }
+.form-item.form-inputfield label { @include hidden; }
+.wpcf7-form-control-wrap { display:block; }
+
+// Input and textarea
+.form-item input,
+.form-item textarea { max-width:100%; border:none; -webkit-appearance:none; @include border-radius(0); }
+.form-item input:focus,
+.form-item textarea:focus { outline:0; }
+.form-item.form-inputfield { padding:5px; @include box-sizing(border-box); border:2px solid $color; background-color:#fff; }
+.form-item.focus { outline:1px solid $accent; border-color:$accent; }
+
+// Button
+.form-item.input-submit { @include no-column; margin:0; width:auto; @include new-row; }
+.form-item.input-submit input { color:#fff; background-color:$color; text-align:center; display:block; width:100%; padding:10px; @include transition(all 0.3s); }
+.form-item.input-submit input:hover,
+.form-item.input-submit input:focus { background-color:darken($color,10%); }
+.form-item.input-submit input:focus { outline:1px dotted darken(#fff, 30%); }
+
+// Contact-form 7 specific
+span.wpcf7-list-item { display:block; margin:0; margin-bottom:0.5em; }
+
+
+//mobile
+@media screen and ($mobileRule:$page-min-width - 1) {
+	.form-item { @include grda-column-flat(6,0); margin-left:0; }
+	.form-item.small { @include grda-column-flat(3,0); }
+	.form-item.input-location { margin-left:0; }
+}

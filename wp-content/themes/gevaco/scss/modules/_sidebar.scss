@@ -1,0 +1,25 @@
+/* ==== Sidebar ==== */
+/* ==================================== */
+
+// Multiple sections
+.multi-section aside.sidebar { @include grda-column(2,1); padding:px-to-em(30px) 0; @include adjust-font-size-to(16px, false, 24px); }
+.multi-section aside.sidebar h2 { border-bottom:1px solid #fff; }
+.multi-section aside.sidebar h3 { margin-bottom:px-to-em(10px,20px); margin-top:px-to-em(10px); font-style:italic; padding-left:1em; }
+
+//mobile
+@media screen and ($mobileRule:$page-min-width - 1) {
+	.multi-section aside.sidebar { @include grda-column(6,1); @include new-row; }
+}
+
+aside.sidebar .wrapper { padding:0 px-to-em(30px);}
+
+// Side navigation
+nav.subnavigation ul li { @include reset-li; display:block; margin-top:px-to-em(10px); }
+nav.subnavigation ul li:first-child { margin-top:0; }
+nav.subnavigation ul li a { display:block; position:relative; padding:px-to-em(10px, 18px) px-to-em(30px, 18px); color:$accent; @include rgba-background-inline(rgba(0,0,0,0.50)); }
+nav.subnavigation ul li a:after { content:''; position:absolute; top:0; bottom:0; right:20px; width:7px; display:block; background-repeat:no-repeat; background-position:center; @include transition(all 0.3s);}
+// hover & focus
+nav.subnavigation ul li a:hover,
+nav.subnavigation ul li a:focus { text-decoration:none; @include rgba-background-inline(rgba(0,0,0,0.30)); }
+nav.subnavigation ul li a:hover:after,
+nav.subnavigation ul li a:focus:after { right:12px; }

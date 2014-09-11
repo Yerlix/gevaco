@@ -1,0 +1,312 @@
+
+
+//GRID A SETTINGS
+$grda-col-width: ($grd-total-width - (($grda-columns - 1 + ($grd-border-gutters * 2)) * $grd-gutter-width)) / $grda-columns;
+
+//GRID B SETTINGS
+$grdb-col-width: ($grd-total-width - (($grdb-columns - 1 + ($grd-border-gutters * 2)) * $grd-gutter-width)) / $grdb-columns;
+
+
+//DEBUG
+@mixin debugGridsBody {
+	@if $grd-debug == 1 {
+		#cssGridDebug { display:block !important; }
+		#cssDebugGutterWidth:after { content:"${grd-gutter-width}"; }
+		#cssDebugTotalWidth:after { content: "${grd-total-width}"; }
+		#cssDebugBorderGutters:after { content: "${grd-border-gutters}"; }
+		#cssDebugGrdACols:after { content: "${grda-columns}"; }
+		#cssDebugGrdAColWidth:after { content: "${grda-col-width}"; }
+		#cssDebugGrdBCols:after { content: "${grdb-columns}"; }
+		#cssDebugGrdBColWidth:after { content: "${grdb-col-width}"; }
+	}
+
+	@if $grd-debug == 0 {
+		#cssGridDebug { display:none !important; }
+	}
+}
+
+@mixin debugColor($color) {
+	@if $grd-debug-colors == 1 {
+		background:$color;
+	}
+	@if $grd-debug-colors == 0 { }
+}
+
+
+
+
+//basics
+@mixin clearfix {
+	*zoom:1;
+
+	&:before,
+	&:after {
+	    content:"";
+	    display:table;
+	}
+	&:after {
+	    clear:both;
+	}
+}
+body { width: 100%; @include clearfix; }
+//body.debugGrids {  @include debugGridsBody; }
+@mixin new-row { clear:left; }
+@mixin grd-column() { display:block; float:left; margin-right:-100%; }
+@mixin no-column() { float:none; margin:none; margin:0; }
+
+/***** (nested) grd A colums ******/
+@mixin grda-column ($width,$position,$topLevel:1,$calcBase:$grda-columns) {
+	@if (($topLevel == 1) and ($calcBase == $grda-columns)) {
+		@include grd-column;
+
+		$baseFactor:(((($grd-gutter-width + $grda-col-width) * $calcBase) + ((2 * $grd-border-gutters - 1) * $grd-gutter-width)) / 100);
+
+		$this-width:((($grd-gutter-width + $grda-col-width) * $width) - $grd-gutter-width) / $baseFactor ;
+		$this-margin-left:(($position - 1) * ($grd-gutter-width + $grda-col-width) + ($grd-border-gutters * $grd-gutter-width)) / $baseFactor;
+
+		width: percentage($this-width/100);
+		margin-left: percentage($this-margin-left/100);
+
+		@include debugColor(rgba(255,155,65,0.4)); //orange
+	}
+
+	@else{
+		@if (($topLevel != 1), ($calcBase < $grda-columns)){
+			@include grd-column;
+
+			$baseFactor:(((($grd-gutter-width + $grda-col-width) * $calcBase) - $grd-gutter-width) / 100);
+
+			$this-width:((($grd-gutter-width + $grda-col-width) * $width) - $grd-gutter-width) / $baseFactor;
+			$this-margin-left:(($position - 1) * ($grd-gutter-width + $grda-col-width)) / $baseFactor;
+
+			width: percentage($this-width/100);
+			margin-left: percentage($this-margin-left/100);
+
+			@include debugColor(rgba(255,0,0,0.4)); //red
+		}
+	}
+
+}
+
+@mixin grda-column-flat ($width,$topLevel:1,$calcBase:$grda-columns) {
+	@if (($topLevel == 1) and ($calcBase == $grda-columns)) {
+		$baseFactor:(((($grd-gutter-width + $grda-col-width) * $calcBase) + ((2 * $grd-border-gutters - 1) * $grd-gutter-width)) / 100);
+
+		$this-width:((($grd-gutter-width + $grda-col-width) * $width) - $grd-gutter-width) / $baseFactor;
+		$this-margin-left:$grd-gutter-width / $baseFactor;
+
+		width: percentage($this-width/100);
+		margin-left: percentage($this-margin-left/100);
+		float:left;
+	}
+
+	@else{
+		@if (($topLevel != 1), ($calcBase < $grda-columns)){
+			$baseFactor:(((($grd-gutter-width + $grda-col-width) * $calcBase) - $grd-gutter-width) / 100);
+
+			$this-width:((($grd-gutter-width + $grda-col-width) * $width) - $grd-gutter-width) / $baseFactor;
+			$this-margin-left:$grd-gutter-width / $baseFactor;
+
+			width: percentage($this-width/100);
+			margin-left: percentage($this-margin-left/100);
+			float:left;
+		}
+	}
+
+}
+
+@mixin grda-pushed-column ($width,$posiiton,$calcBase:$grda-columns) {
+	$baseFactor:(((($grd-gutter-width + $grda-col-width) * $calcBase) - $grd-gutter-width) / 100);
+
+	$this-width:((($grd-gutter-width + $grda-col-width) * $width) - $grd-gutter-width) / $baseFactor;
+	$this-margin-left:$grd-gutter-width / $baseFactor;
+	$this-margin-right:-((($grd-gutter-width + $grda-col-width) * $width) - $grd-gutter-width - ($grd-border-gutters * $grd-gutter-width));
+
+	float:right;
+	width: percentage($this-width/100);
+	margin-left: percentage($this-margin-left/100);
+	margin-right: $this-margin-right;
+}
+
+@mixin grda-pad-column($width,$position,$topLevel:1,$calcBase:$grda-columns) {
+	@if  (($topLevel == 1) and ($calcBase == $grda-columns)) {
+		@include grd-column;
+
+		$baseFactor:(((($grd-gutter-width + $grda-col-width) * $calcBase) + ((2 * $grd-border-gutters - 1) * $grd-gutter-width)) / 100);
+
+		$this-width:((($grd-gutter-width + $grda-col-width) * $width) - $grd-gutter-width) / $baseFactor;
+		$this-margin-left:((($position - 1) * ($grd-gutter-width + $grda-col-width) + ($grd-border-gutters * $grd-gutter-width)) - ($grd-gutter-width / 2)) / $baseFactor;
+		$this-padding:($grd-gutter-width / 2) / $baseFactor;
+
+		width: percentage($this-width / 100);
+		margin-left: percentage($this-margin-left/100);
+		padding: percentage($this-padding/100);
+
+		@include debugColor(rgba(255,155,65,0.4)); //orange
+	}@else {
+		@if (($topLevel != 1), ($calcBase < $grda-columns)){
+			@include grd-column;
+
+			$baseFactor:(((($grd-gutter-width + $grda-col-width) * $calcBase) - $grd-gutter-width) / 100);
+
+			$this-width:((($grd-gutter-width + $grda-col-width) * $width) - $grd-gutter-width) / $baseFactor;
+			$this-margin-left:((($position - 1) * ($grd-gutter-width + $grda-col-width)) / ($grd-gutter-width / 2)) / $baseFactor;
+			$this-padding:($grd-gutter-width / 2) / $baseFactor;
+
+			width: percentage($this-width/100);
+			margin-left: percentage($this-margin-left/100);
+			padding: percentage($this-padding/100);
+
+			@include debugColor(rgba(0,0,255,0.4)); //blue
+		}
+	}
+
+
+}
+
+
+/***** (nested) grd B colums ******/
+@mixin grdb-column ($width,$position,$topLevel:1,$calcBase:$grdb-columns) {
+	@if ($topLevel == 1) and ($calcBase == $grdb-columns) {
+		@include grd-column;
+
+		$baseFactor:(((($grd-gutter-width + $grdb-col-width) * $calcBase) + ((2 * $grd-border-gutters - 1) * $grd-gutter-width)) / 100);
+
+		$this-width:((($grd-gutter-width + $grdb-col-width) * $width) - $grd-gutter-width) / $baseFactor;
+		$this-margin-left:(($position - 1) * ($grd-gutter-width + $grdb-col-width) + ($grd-border-gutters * $grd-gutter-width)) / $baseFactor;
+
+		width: percentage($this-width/100);
+		margin-left: percentage($this-margin-left/100);
+
+		@include debugColor(rgba(185,0,255,0.4)); //purple
+	}@else{
+		@if ($topLevel != 1), ($calcBase < $grdb-columns){
+			@include grd-column;
+
+			$baseFactor:(((($grd-gutter-width + $grdb-col-width) * $calcBase) - $grd-gutter-width) / 100);
+
+			$this-width:((($grd-gutter-width + $grdb-col-width) * $width) - $grd-gutter-width) / $baseFactor;
+			$this-margin-left:(($position - 1) * ($grd-gutter-width + $grdb-col-width)) / $baseFactor;
+
+			width: percentage($this-width/100);
+			margin-left: percentage($this-margin-left/100);
+
+			@include debugColor(rgba(0,0,255,0.4)); //blue
+		}
+	}
+
+}
+
+@mixin grdb-column-flat ($width,$topLevel:1,$calcBase:$grdb-columns) {
+	@if (($topLevel == 1) and ($calcBase == $grdb-columns)) {
+		$baseFactor:(((($grd-gutter-width + $grdb-col-width) * $calcBase) + ((2 * $grd-border-gutters - 1) * $grd-gutter-width)) / 100);
+
+		$this-width:((($grd-gutter-width + $grdb-col-width) * $width) - $grd-gutter-width) / $baseFactor;
+		$this-margin-left:$grd-gutter-width / $baseFactor;
+
+		width: percentage($this-width/100);
+		margin-left: percentage($this-margin-left/100);
+		float:left;
+	}
+
+	@else{
+		@if (($topLevel != 1), ($calcBase < $grdb-columns)){
+			$baseFactor:(((($grd-gutter-width + $grdb-col-width) * $calcBase) - $grd-gutter-width) / 100);
+
+			$this-width:((($grd-gutter-width + $grdb-col-width) * $width) - $grd-gutter-width) / $baseFactor;
+			$this-margin-left:$grd-gutter-width / $baseFactor;
+
+			width: percentage($this-width/100);
+			margin-left: percentage($this-margin-left/100);
+			float:left;
+		}
+	}
+
+}
+
+@mixin grdb-pad-column ($width,$position,$topLevel:1,$calcBase:$grdb-columns) {
+	@if ($topLevel == 1) and ($calcBase == $grdb-columns) {
+		@include grd-column;
+
+		$baseFactor:(((($grd-gutter-width + $grdb-col-width) * $calcBase) + ((2 * $grd-border-gutters - 1) * $grd-gutter-width)) / 100);
+
+		$this-width:((($grd-gutter-width + $grdb-col-width) * $width) - $grd-gutter-width) / $baseFactor;
+		$this-margin-left:((($position - 1) * ($grd-gutter-width + $grdb-col-width) + ($grd-border-gutters * $grd-gutter-width)) - ($grd-gutter-width / 2)) / $baseFactor;
+		$this-padding:($grd-gutter-width / 2) / $baseFactor;
+
+		width: percentage($this-width/100);
+		margin-left: percentage($this-margin-left/100);
+		padding: percentage($this-padding/100);
+
+		@include debugColor(rgba(185,0,255,0.4)); //purple
+	}@else{
+		@if ($topLevel != 1), ($calcBase < $grdb-columns){
+			@include grd-column;
+
+			$baseFactor:(((($grd-gutter-width + $grdb-col-width) * $calcBase) - $grd-gutter-width) / 100);
+
+			$this-width:((($grd-gutter-width + $grdb-col-width) * $width) - $grd-gutter-width) / $baseFactor;
+			$this-margin-left:((($position - 1) * ($grd-gutter-width + $grdb-col-width)) / ($grd-gutter-width / 2))  / $baseFactor;
+			$this-padding:($grd-gutter-width / 2) / $baseFactor;
+
+			width: percentage($this-width/100);
+			margin-left: percentage($this-margin-left/100);
+			padding: percentage($this-padding/100);
+
+			@include debugColor(rgba(0,0,255,0.4)); //blue
+		}
+	}
+}
+
+
+/***** (nested) compound A->B grd colums ******/
+@mixin grdab-column($width,$position,$calcBase:$grda-columns,$calcBasePosition:1) {
+	$baseFactor: (((($grd-gutter-width + $grda-col-width) * $calcBase) - $grd-gutter-width) / 100);
+
+	@include grd-column;
+
+	$this-width: ((($grd-gutter-width + $grdb-col-width) * $width) - $grd-gutter-width) / (((($grd-gutter-width + $grda-col-width) * $calcBase) - $grd-gutter-width) / 100);
+	$this-margin-left:((($position - 1) * ($grd-gutter-width + $grdb-col-width) - (($calcBasePosition - 1) * ($grd-gutter-width + $grda-col-width))) / (((($grd-gutter-width + $grda-col-width) * $calcBase) - $grd-gutter-width) / 100));
+
+	width: percentage($this-width/100);
+	margin-left: percentage($this-margin-left/100);
+}
+@mixin grdab-pad-column($width,$position,$calcBase:$grda-columns,$calcBasePosition:1) {
+	$baseFactor: (((($grd-gutter-width + $grda-col-width) * $calcBase) - $grd-gutter-width) / 100);
+
+	@include grd-column;
+
+	$this-width: ((($grd-gutter-width + $grdb-col-width) * $width) - $grd-gutter-width) / (((($grd-gutter-width + $grda-col-width) * $calcBase) - $grd-gutter-width) / 100);
+	$this-margin-left:((($position - 1) * ($grd-gutter-width + $grdb-col-width) - (($calcBasePosition - 1) * ($grd-gutter-width + $grda-col-width))) / (((($grd-gutter-width + $grda-col-width) * $calcBase) - $grd-gutter-width) / 100)) - (($grd-gutter-width / 2) / $baseFactor);
+	$this-padding:($grd-gutter-width / 2) / $baseFactor;
+
+	width: percentage($this-width/100);
+	margin-left: percentage($this-margin-left/100);
+	padding: percentage($this-padding/100);
+}
+
+/***** (nested) compound B->A grd colums ******/
+@mixin grdba-column($width,$position,$calcBase:$grdb-columns,$calcBasePosition:1) {
+	$baseFactor: (((($grd-gutter-width + $grdb-col-width) * $calcBase) - $grd-gutter-width) / 100);
+
+	@include grd-column;
+
+	$this-width: ((($grd-gutter-width + $grda-col-width) * $width) - $grd-gutter-width) / (((($grd-gutter-width + $grdb-col-width) * $calcBase) - $grd-gutter-width) / 100);
+	$this-margin-left:((($position - 1) * ($grd-gutter-width + $grda-col-width) - (($calcBasePosition - 1) * ($grd-gutter-width + $grdb-col-width))) / (((($grd-gutter-width + $grdb-col-width) * $calcBase) - $grd-gutter-width) / 100));
+
+	width: percentage($this-width/100);
+	margin-left: percentage($this-margin-left/100);
+}
+@mixin grdba-pad-column($width,$position,$calcBase:$grdb-columns,$calcBasePosition:1) {
+	$baseFactor: (((($grd-gutter-width + $grdb-col-width) * $calcBase) - $grd-gutter-width) / 100);
+
+	@include grd-column;
+
+	$this-width: ((($grd-gutter-width + $grda-col-width) * $width) - $grd-gutter-width) / (((($grd-gutter-width + $grdb-col-width) * $calcBase) - $grd-gutter-width) / 100);
+	$this-margin-left:((($position - 1) * ($grd-gutter-width + $grda-col-width) - (($calcBasePosition - 1) * ($grd-gutter-width + $grdb-col-width))) / (((($grd-gutter-width + $grdb-col-width) * $calcBase) - $grd-gutter-width) / 100))- (($grd-gutter-width / 2) / $baseFactor);
+	$this-padding:($grd-gutter-width / 2) / $baseFactor;
+
+	width: percentage($this-width/100);
+	margin-left: percentage($this-margin-left/100);
+	padding: percentage($this-padding/100);
+}

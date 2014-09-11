@@ -1,0 +1,18 @@
+.picker-element { left:-9999em; position:absolute; }
+.picker { position:relative; cursor:pointer; }
+.picker .picker-label { display:inline-block; margin:0; margin-left:25px; }
+.picker .picker-handle { position:absolute; top:4px; left:0; border:2px solid $color; display:block; background:#fff; height:16px; width:16px; }
+.picker.focus .picker-handle { border-color:$accent; outline:1px solid $accent; }
+.picker.picker-radio .picker-handle { @include border-radius(50%); }
+.picker.picker-radio .picker-flag { @include border-radius(50%); background:#fff; display:block; height:8px; margin:4px; width:8px; }
+.picker.picker-radio.checked .picker-flag { background:$accent; }
+.picker.picker-checkbox .picker-flag { background-color:#fff; display:block; height:100%; margin:0; width:100%; }
+.picker.picker-checkbox.checked .picker-flag { background-repeat:no-repeat; background-position:center; }
+.picker.disabled .picker-label { color:#ccc; }
+.picker.disabled .picker-handle { border-color:#eee; }
+.picker.picker-radio.disabled .picker-flag { background:#fff; }
+.picker.picker-radio.disabled.checked .picker-flag { background:#eee; }
+.picker.picker-checkbox.disabled .picker-flag::after { color:#eee; content:''; }
+.picker.picker-checkbox.disabled.checked .picker-flag::after { color:#eee; content:'\2714'; }
+
+.picker label { cursor:pointer; }

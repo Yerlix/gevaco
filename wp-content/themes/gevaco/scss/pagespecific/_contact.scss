@@ -1,0 +1,18 @@
+/* ==== Contact ==== */
+/* ==================================== */
+.google-map { margin:px-to-em(15px) 0; }
+// no-js
+// .no-js #rwmb-map-canvas-0 { display:none; }
+
+.contact-info dl dt { color:$accent; display:inline-block; width:percentage(2/10); margin-right:percentage(0.5/10); }
+.contact-info dl dd { display:inline-block; width:percentage(7/10); margin-left:0; }
+.contact-info dl dd.wide { width:100%; }
+.contact-info dl dd a { color:#fff; display:block; text-decoration:underline; position:relative; padding-left:px-to-em(30px, 18px); overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+.contact-info dl dd a:before { content:''; position:absolute; top:0; bottom:0; left:0; width:7px; display:block; background-repeat:no-repeat; background-position:center; @include transition(all 0.3s); }
+.contact-info dl dd a:hover { text-decoration:none; }
+.contact-info dl dd a:hover:before { left:8px; }
+
+//screens <1024
+@media screen and (max-width:$breakpoint) {
+	.field-fiscal-data { display:none; }
+}

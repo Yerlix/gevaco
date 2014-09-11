@@ -1,0 +1,4 @@
+/* ==== Footer ==== */
+/* ==================================== */
+#page-footer p { @include grda-column(6,1); @include new-row; padding:0 px-to-em(30px); @include adjust-font-size-to(12px); }
+#page-footer a { color:$accent; }
